@@ -2,10 +2,11 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    database_url: str | None = None
+    database_url: str = "sqlite:///./dev.db"
     app_name: str = "Comparator API"
-    debug: bool = True
-    secret_key: str | None = None
+    debug: bool = False
+    secret_key: str = "change-me-in-production"
+    cors_origins: str = "*"
 
     class Config:
         env_file = ".env"
