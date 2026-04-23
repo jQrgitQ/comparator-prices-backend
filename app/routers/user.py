@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 
 from app.database import get_db
+from app.models.user import User
 from app.schemas.user import UserCreate, UserUpdate, UserResponse
 from app.security import require_role
 from app.services.user_service import UserService
@@ -29,10 +30,7 @@ def read_users(
 ):
     from app.utils.validators import validate_pagination
     skip, limit = validate_pagination(skip, limit)
-    return db.query(UserCreate).offset(skip).limit(limit).all()
-
-
-from app.models.user import User
+    return db.query(User).offset(skip).limit(limit).all()
 
 
 @router.get("/{user_id}", response_model=UserResponse)
